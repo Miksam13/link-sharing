@@ -1,0 +1,13 @@
+.config {
+  width: 50%;
+  height: 100%;
+
+  .addlink_btn {
+    width: 90%;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+  }
+}
