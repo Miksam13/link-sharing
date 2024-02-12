@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/view/:username",
+    path: "/view/:uuid",
     element: <ViewPage />,
     errorElement: <ErrorPage />,
   },

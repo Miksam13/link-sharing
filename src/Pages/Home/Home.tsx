@@ -1,48 +1,40 @@
-import ConfigPage from "./components/Config/Config";
-import PreviewPage from "./components/Preview/Preview";
+import ConfigComp from "./components/Config/Config";
+import PreviewComp from "./components/Preview/Preview";
 import "./home.scss";
 import { useState } from "react";
 import ILink from "../../interfaces/ILink";
-import { DropResult } from "react-beautiful-dnd";
+import IData from "../../interfaces/IData";
 
 function HomePage() {
-  const [links, setLinks] = useState<ILink[]>([]);
-
-  console.log(links);
-
-  const addLink = () => {
-    const newLink = {
-      id: +Date.now(),
-      title: "",
+  const [links, setLinks] = useState<ILink[]>([
+    {
+      id: 1,
+      title: "Github",
+      logo: "assets/icons/github.png",
+      color: "#1b1f23",
+      url: "shototam",
+      position: 1,
+      size: "50",
+    },
+    {
+      id: 3,
+      title: "Telegram",
+      logo: "assets/icons/telegram.png",
+      color: "#34aadf",
       url: "",
-      logo: "",
-      color: "#fff",
-      position: links.length + 1,
-    };
-    setLinks([...links, newLink]);
-  };
-
-  const removeLink = (id: number) => {
-    const updatedLinks = links.filter((link: ILink) => link.id !== id);
-
-    setLinks(
-      updatedLinks.map((link: ILink, index) => ({
-        ...link,
-        position: index + 1,
-      })),
-    );
-  };
-
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-
-    if (!destination) return;
-    const items = [...links];
-    const [removed] = items.splice(source.index, 1);
-    items.splice(destination.index, 0, removed);
-
-    setLinks(items);
-  };
+      position: 2,
+      size: "50",
+    },
+  ]);
+  const [data, setData] = useState<IData>({
+    first_name: "Miksam",
+    last_name: "Omel",
+    email: "miksam@miksam.com",
+    img_url:
+      "https://mywowo.net/media/images/cache/dubai_img_worlds_of_adventure_01_presentazione_jpg_1200_630_cover_85.jpg",
+    isProfile: true,
+  });
+  const [isSave, setIsSave] = useState(true);
 
   return (
     <>
@@ -51,13 +43,13 @@ function HomePage() {
         <button>Share Link</button>
       </div>
       <div className="body">
-        <PreviewPage />
-        <ConfigPage
+        <PreviewComp links={links} data={data} isSave={isSave} />
+        <ConfigComp
+          data={data}
           links={links}
-          addLink={addLink}
-          removeLink={removeLink}
-          onDragEnd={onDragEnd}
           setLinks={setLinks}
+          setData={setData}
+          setIsSave={setIsSave}
         />
       </div>
     </>

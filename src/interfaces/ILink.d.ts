@@ -5,6 +5,7 @@ interface ILink {
   logo: string;
   color: string;
   position: number;
+  size: string;
 }
 
 export default ILink;

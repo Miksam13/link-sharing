@@ -1,13 +1,16 @@
 .config {
   width: 50%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
 
-  .addlink_btn {
-    width: 90%;
-  }
-
-  .links {
-    display: flex;
-    flex-direction: column;
-  }
+.save_btn {
+  margin-top: 25px;
+  width: 125px;
+  margin-left: auto;
+  margin-right: 75px;
+  margin-bottom: 50px;
 }

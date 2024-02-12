@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": "",
+      "name": "",
+      "surname": "",
+      "email": "",
+      "img_url": "",
+      "isProfile": true,
+      "links": [
+        {
+          "id": 1,
+          "title": "",
+          "logo": "",
+          "position": 1,
+          "size": "50",
+          "url":  "",
+          "color":  ""
+        }
+      ]
+    }
+  ]
+}

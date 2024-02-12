@@ -1,14 +1,15 @@
 .header {
   display: flex;
-  margin-top: -15px;
-  margin-bottom: 30px;
+  //margin-bottom: 30px;
+  height: 100px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
 .body {
-  height: 600px;
+  margin-top: -50px;
+  //height: 600px;
   min-width: 1440px;
   display: flex;
   flex-direction: row;

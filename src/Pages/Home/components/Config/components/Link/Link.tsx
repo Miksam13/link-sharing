@@ -5,6 +5,86 @@ import { BiChevronDown, BiLink } from "react-icons/bi";
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 
+const platforms = [
+  {
+    id: 1,
+    title: "Github",
+    logo: "assets/icons/github.png",
+    color: "#1b1f23",
+    size: "50",
+  },
+  {
+    id: 2,
+    title: "LinkedIn",
+    logo: "assets/icons/linkedin.png",
+    color: "#0c64c5",
+    size: "50",
+  },
+  {
+    id: 3,
+    title: "Telegram",
+    logo: "assets/icons/telegram.png",
+    color: "#34aadf",
+    size: "50",
+  },
+  {
+    id: 4,
+    title: "Discord",
+    logo: "assets/icons/discord.png",
+    color: "#5d6af2",
+    size: "40",
+  },
+  {
+    id: 5,
+    title: "Instagram",
+    logo: "assets/icons/instagram.png",
+    color: "#fd0bda",
+    size: "35",
+  },
+  {
+    id: 6,
+    title: "YouTube",
+    logo: "assets/icons/youtube.png",
+    color: "#ff0808",
+    size: "45",
+  },
+  {
+    id: 7,
+    title: "FaceBook",
+    logo: "assets/icons/facebook.png",
+    color: "#1877f2",
+    size: "40",
+  },
+  {
+    id: 8,
+    title: "Reddit",
+    logo: "assets/icons/reddit.png",
+    color: "#ff4500",
+    size: "40",
+  },
+  {
+    id: 9,
+    title: "Steam",
+    logo: "assets/icons/steam.png",
+    color: "#193b6e",
+    size: "40",
+  },
+  {
+    id: 10,
+    title: "Twitch",
+    logo: "assets/icons/twitch.png",
+    color: "#944cff",
+    size: "35",
+  },
+  {
+    id: 11,
+    title: "Twitter",
+    logo: "assets/icons/twitter.png",
+    color: "#000000",
+    size: "40",
+  },
+];
+
 type LinkProps = {
   index: number;
   linkId: number;
@@ -17,86 +97,6 @@ type LinkProps = {
 function Link(props: LinkProps) {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectPlatform, setSelectPlatform] = useState(false);
-
-  const platforms = [
-    {
-      id: 1,
-      title: "Github",
-      logo: "assets/icons/github.png",
-      color: "#1b1f23",
-      size: "50",
-    },
-    {
-      id: 2,
-      title: "LinkedIn",
-      logo: "assets/icons/linkedin.png",
-      color: "#0c64c5",
-      size: "50",
-    },
-    {
-      id: 3,
-      title: "Telegram",
-      logo: "assets/icons/telegram.png",
-      color: "#34aadf",
-      size: "50",
-    },
-    {
-      id: 4,
-      title: "Discord",
-      logo: "assets/icons/discord.png",
-      color: "#5d6af2",
-      size: "40",
-    },
-    {
-      id: 5,
-      title: "Instagram",
-      logo: "assets/icons/instagram.png",
-      color: "#fd0bda",
-      size: "35",
-    },
-    {
-      id: 6,
-      title: "YouTube",
-      logo: "assets/icons/youtube.png",
-      color: "#ff0808",
-      size: "45",
-    },
-    {
-      id: 7,
-      title: "FaceBook",
-      logo: "assets/icons/facebook.png",
-      color: "#1877f2",
-      size: "40",
-    },
-    {
-      id: 8,
-      title: "Reddit",
-      logo: "assets/icons/reddit.png",
-      color: "#ff4500",
-      size: "40",
-    },
-    {
-      id: 9,
-      title: "Steam",
-      logo: "assets/icons/steam.png",
-      color: "#193b6e",
-      size: "40",
-    },
-    {
-      id: 10,
-      title: "Twitch",
-      logo: "assets/icons/twitch.png",
-      color: "#944cff",
-      size: "35",
-    },
-    {
-      id: 11,
-      title: "Twitter",
-      logo: "assets/icons/twitter.png",
-      color: "#000000",
-      size: "40",
-    },
-  ];
 
   return (
     <Draggable
@@ -137,9 +137,10 @@ function Link(props: LinkProps) {
                 className="select_platform"
               >
                 <p>
-                  {selectedPlatform === ""
-                    ? "Select Platform"
-                    : selectedPlatform}
+                  {props.link.title ||
+                    (selectedPlatform === ""
+                      ? "Select Platform"
+                      : selectedPlatform)}
                 </p>
                 <button>
                   <BiChevronDown
@@ -164,11 +165,15 @@ function Link(props: LinkProps) {
                                 ...link,
                                 title: platform.title,
                                 logo: platform.logo,
+                                color: platform.color,
+                                size: platform.size,
                               }
                             : {
                                 ...link,
                                 title: link.title,
                                 logo: link.logo,
+                                color: link.color,
+                                size: link.size,
                               },
                         ),
                       );
@@ -195,6 +200,7 @@ function Link(props: LinkProps) {
               <BiLink style={{ marginLeft: "7px" }} />
               <input
                 placeholder="Url of your platform:"
+                value={props.link.url}
                 onChange={(e) => {
                   props.setLinks(
                     props.links.map((link: ILink) =>

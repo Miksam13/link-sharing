@@ -1,4 +1,54 @@
 .preview {
   width: 50%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview_body {
+  margin-top: 100px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  .profile_img_preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 45px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  h2 {
+    margin-top: 25px;
+  }
+}
+
+.link_p {
+  border-radius: 8px;
+  width: 350px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    margin-top: 0;
+    margin-left: 10px;
+  }
+
+  h3 {
+    margin-left: 10px;
+    color: white;
+  }
+
 }

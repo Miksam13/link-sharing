@@ -1,0 +1,27 @@
+h1 {
+  transition: 0.4s;
+  display: flex;
+  align-items: center;
+  input[type="checkbox"] {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    border-radius: 6px;
+    accent-color: #646cff;
+    transition: 0.4s;
+  }
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.addlink_btn {
+  width: 90%;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}

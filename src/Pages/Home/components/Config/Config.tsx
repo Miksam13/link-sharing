@@ -1,52 +1,88 @@
 import "./config.scss";
 import ILink from "../../../../interfaces/ILink";
-import Link from "./components/Link/Link";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { DropResult } from "react-beautiful-dnd";
+import LinksComp from "./components/Links/Links";
+import ProfileComp from "./components/Profile/Profile";
+import IData from "../../../../interfaces/IData";
+import { useState } from "react";
 
 type ConfigProps = {
+  data: IData;
   links: ILink[];
-  addLink: () => void;
-  removeLink: (id: number) => void;
-  onDragEnd: (result: DropResult) => void;
   setLinks: (links: ILink[]) => void;
+  setData: (links: IData) => void;
+  setIsSave: (isSave: boolean) => void;
 };
 
-function ConfigPage(props: ConfigProps) {
+function ConfigComp(props: ConfigProps) {
+  const [stateData, setStateData] = useState(
+    props.data || {
+      first_name: "",
+      last_name: "",
+      email: "",
+      img_url: "",
+      isProfile: true,
+    },
+  );
+  const [stateLinks, setStateLinks] = useState(props.links || []);
+
+  const saveData = () => {
+    if (
+      stateData.first_name !== "" &&
+      stateData.last_name !== "" &&
+      stateData.email !== "" &&
+      stateData.img_url !== ""
+    ) {
+      props.setData({
+        first_name: stateData.first_name,
+        last_name: stateData.last_name,
+        email: stateData.email,
+        img_url: stateData.img_url,
+        isProfile: stateData.isProfile,
+      });
+      props.setLinks(stateLinks);
+      console.log(props.data);
+      console.log(stateLinks);
+      props.setIsSave(true);
+    }
+  };
+
+  const removeLink = (id: number) => {
+    const updatedLinks = stateLinks.filter((link: ILink) => link.id !== id);
+
+    setStateLinks(
+      updatedLinks.map((link: ILink, index) => ({
+        ...link,
+        position: index + 1,
+      })),
+    );
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+    const items = [...stateLinks];
+    const [removed] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, removed);
+
+    setStateLinks(items);
+  };
+
   return (
     <div className="config">
-      <h1>Customize your links</h1>
-      <p>
-        Add/edit/remove links below and then share all your profiles with the
-        world!
-      </p>
-      <button className="addlink_btn" onClick={() => props.addLink()}>
-        + Add new link
+      <ProfileComp setStateData={setStateData} stateData={stateData} />
+      <LinksComp
+        stateLinks={stateLinks}
+        removeLink={removeLink}
+        onDragEnd={onDragEnd}
+        setStateLinks={setStateLinks}
+      />
+      <button className="save_btn" onClick={saveData}>
+        Save
       </button>
-      <DragDropContext onDragEnd={props.onDragEnd}>
-        <Droppable droppableId="1">
-          {(provided) => (
-            <div
-              className="links"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {props.links.map((link: ILink, index: number) => (
-                <Link
-                  key={link?.id}
-                  index={index}
-                  linkId={link?.id}
-                  link={link}
-                  links={props.links}
-                  removeLink={props.removeLink}
-                  setLinks={props.setLinks}
-                />
-              ))}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
     </div>
   );
 }
 
-export default ConfigPage;
+export default ConfigComp;
